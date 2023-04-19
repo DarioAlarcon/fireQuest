@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overlock+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100&display=swap'); 
+#dragon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body{
+    background-color: #F6F6F6;
+}
+
+.tittle{
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 36px;
+}
+
+.subtittle{
+    font-family: 'Arima', cursive;
+    color: #F32424;
+
+}
+.dragontarget{
+    width: 180px;
+    height: 217px;
+    background: white;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px;
+    font-family: 'Overlock SC', cursive;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dragontarget img{
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.targets {
+    display: flex;
+}
+ input{
+    display: none;
+} 
+
+input:checked + label{
+    background-color: rgb(130, 74, 64);
+    color: #F6F6F6;
+}
+
+input:hover + label{
+    background-color: rgb(248, 146, 130);
+}
+
+#dragon-buttom{
+    width: 140px;
+    height: 50px;
+    border-radius: 5px;
+    background: #F32424;
+    border: 0px;
+    font-family: 'Arima', cursive;
+    color: white;
+    font-size: 25px;
+    margin: 30px 0px 0px 0px;
+}
+
+#attack{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;}
+
+.divButtoms{
+    display: flex;
+    flex-direction: row;
+}
+
+.attackButtom{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#attack img{
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+.recoint-of-attacks{
+    display: grid;
+    grid-template-columns: 100px 100px;
+}
+
+.attackButtom{
+    width: 180px;
+    height: 217px;
+    background: white;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px;
+    font-family: 'Overlock SC', cursive;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Overlock SC';
+    border: none;
+    font-size: large;
+}
+
+
+@media (max-width: 1180px){
+    .targets{
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>DragonQuest</title>
+        <link rel="stylesheet" href="firequest.css">
+    </head>
+    <body>
+        <section id="dragon">
+            <h1 class="tittle">DragonQuest</h1>
+            <h2 class="subtittle">choose your dragon</h2>
+
+            <div class="targets">
+                <input type="radio" name="dragon" id="fuegosangre">
+                <label class="dragontarget" for="fuegosangre">
+                    <p>Fuegosangre</p>
+                    <img src="./resources/fuegosol.png" alt="fuegosangre">
+                </label> 
+                
+                <input type="radio" name="dragon" id="darkstorm">
+                <label class="dragontarget" for="darkstorm">
+                    <p>darkstorm</p>
+                    <img src="./resources/darkstorm.png" alt="fuegosangre">
+                </label> 
+                
+                <input type="radio" name="dragon" id="skullmaker">
+                <label class="dragontarget" for="skullmaker">
+                    <p>skullmaker</p>
+                    <img src="./resources/skullmaker.png" alt="fuegosangre">
+                </label> 
+    
+                <input type="radio" name="dragon" id="redtint">
+                <label class="dragontarget" for="redtint">
+                    <p>redtint</p>
+                    <img  src="./resources/redtint.png" alt="fuegosangre">
+                </label> 
+    
+                <input type="radio" name="dragon" id="nigtmare">
+                <label class="dragontarget" for="nigtmare">
+                    <p>nigthmare</p>
+                    <img src="./resources/nigthmare.png" alt="fuegosangre">
+                </label> 
+    
+                <input type="radio" name="dragon" id="silentdeath">
+                <label class="dragontarget" for="silentdeath">
+                    <p>silentdeath</p>
+                    <img src="./resources/silentdeath.png" alt="fuegosangre">
+                </label> 
+
+            </div>
+
+            <button id="dragon-buttom">choose</button>
+        </section>
+        <section id="attack">
+            <h1 class="tittle">DragonQuest</h1>
+            <h2 class="subtittle">choose your attack</h2>
+            <div class="divButtoms">
+                <button id="blood-buttom" class="attackButtom">Blood 
+                    <img src="./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png" alt="bloodSymbol">
+                </button>
+                <button id="shadow-buttom" class="attackButtom">Shadow
+                    <img src="./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png" alt="shadowSymbol">
+                </button>
+                <button id="poison-buttom" class="attackButtom">Poison
+                    <img src="./resources/Poison-Type-Pokemon-Sword-and-Shield.png" alt="poisonSymbol">
+                </button>
+            </div>
+            <div id="message">
+                    <p>  <p id="result"></p></p>
+                    <section id="retry">
+                        <button id="retry-buttom">choose again</button>
+                    </section>
+                </div>        
+            <div class="recoint-of-attacks">
+                <div>
+                    <span id="player-life">3</span> 
+                    <span id="dragonPlayer"></span>
+                    <div id="player-Attacks"></div>
+                </div>
+                <div>
+                    <span id="enemylife">3</span>
+                    <span id="dragonEnemy"></span>
+                    <div id="enemy-attacks"></div>
+                </div>
+            </div>
+        </section>
+        <script src="./firequest.js">
+        </script>
+    </body>
+</html>
