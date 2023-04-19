@@ -1,33 +1,103 @@
-let dragonButttom = document.getElementById('dragon-buttom')
-let bloodButtom = document.getElementById('blood-buttom')
-let ShadowButtom = document.getElementById('shadow-buttom')
-let poisonButtom = document.getElementById('poison-buttom')
-let resetButtom = document.getElementById('retry-buttom')
-let sectionReset = document.getElementById('retry')
-let sectionCombat = document.getElementById('attack')
+const dragonButttom = document.getElementById('dragon-buttom')
+const bloodButtom = document.getElementById('blood-buttom')
+const ShadowButtom = document.getElementById('shadow-buttom')
+const poisonButtom = document.getElementById('poison-buttom')
+const resetButtom = document.getElementById('retry-buttom')
+const sectionReset = document.getElementById('retry')
+const sectionCombat = document.getElementById('attack')
 
-let inputFuegoSangre = document.getElementById('fuegosangre')
-let inputdarkstorm = document.getElementById('darkstorm')
-let inputskullmaker = document.getElementById('skullmaker')
-let inputredtint = document.getElementById('redtint')
-let inputnigthmare = document.getElementById('nigtmare')
-let inputsilentdeath = document.getElementById('silentdeath')
-let spanDragonPlayer = document.getElementById('dragonPlayer')
+const spanDragonPlayer = document.getElementById('dragonPlayer')
 
-let spanDragonenemy = document.getElementById('dragonEnemy')
+const spanDragonenemy = document.getElementById('dragonEnemy')
 
-let rewindAttacks = document.getElementById('result')
+const rewindAttacks = document.getElementById('result')
 
-let rewindPlayerAttacks = document.getElementById('player-Attacks')
-let rewindEnmeyAttacks = document.getElementById('enemy-attacks')
+const rewindPlayerAttacks = document.getElementById('player-Attacks')
+const rewindEnmeyAttacks = document.getElementById('enemy-attacks')
 
-let playerLifePoints = document.getElementById('player-life')
-let enemyLifePoint = document.getElementById('enemylife')
+const playerLifePoints = document.getElementById('player-life')
+const enemyLifePoint = document.getElementById('enemylife')
+const target_container = document.getElementById('targets_container')
 
+let beats = []
+let beatsOption
 let playerAttack
 let enemyAttack
 let lifenumber = 3
 let enemynumber = 3
+let inputFuegoSangre 
+let inputdarkstorm
+let inputskullmaker 
+let inputredtint 
+let inputnigthmare 
+let inputsilentdeath
+
+
+class Beast {
+    constructor(name, photo, lifes){
+        this.name = name
+        this.photo = photo
+        this.lifes = lifes
+        this.attacks = []
+    }
+}
+
+let fuegosangre = new Beast('Fuegosangre','./resources/fuegosol.png',5)
+let darkstorm = new Beast('Darkstorm', './resources/darkstorm.png', 5)
+let skullmaker = new Beast('Skullmaker','./resources/skullmaker.png', 5)
+let redtint = new Beast('Redtint','./resources/redtint.png',5)
+let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5)
+let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5)
+
+fuegosangre.attacks.push(
+    {nombre: '🔴', id: 'blood-buttom'},
+    {nombre: '🔴', id: 'blood-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom'},
+)
+
+darkstorm.attacks.push(
+    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+
+)
+
+skullmaker.attacks.push(
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+
+)
+
+redtint.attacks.push(
+    {nombre: '🔴', id: 'blood-buttom'},
+    {nombre: '🔴', id: 'blood-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+
+)
+
+nigtmare.attacks.push(
+    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+
+)
+
+silentdeath.attacks.push(
+    {nombre: '🔴', id: 'blood-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom'},
+)
+
+beats.push(fuegosangre,silentdeath,nigtmare,redtint,skullmaker,darkstorm)
+
+
 
 function startGame (){
     dragonButttom.addEventListener('click', selectDragon)
@@ -37,6 +107,24 @@ function startGame (){
     resetButtom.addEventListener('click', resetGame)
     sectionReset.style.display = 'none'
     sectionCombat.style.display = 'none'
+    beats.forEach((Beast) => {
+    beatsOption = `
+    <input type="radio" name="dragon" id=${Beast.name}>
+    <label class="dragontarget" for=${Beast.name}>
+    <p>${Beast.name}</p>
+    <img src=${Beast.photo} alt=${Beast.name}>
+    </label> 
+    `
+    target_container.innerHTML += beatsOption   
+})
+
+ inputFuegoSangre = document.getElementById('Fuegosangre')
+ inputdarkstorm = document.getElementById('Darkstorm')
+ inputskullmaker = document.getElementById('Skullmaker')
+ inputredtint = document.getElementById('Redtint')
+ inputnigthmare = document.getElementById('Nigtmare')
+ inputsilentdeath = document.getElementById('Silentdeath')
+
 }
 
 function selectDragon(){
