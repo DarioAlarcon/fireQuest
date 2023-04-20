@@ -1,7 +1,4 @@
 const dragonButttom = document.getElementById('dragon-buttom')
-const bloodButtom = document.getElementById('blood-buttom')
-const ShadowButtom = document.getElementById('shadow-buttom')
-const poisonButtom = document.getElementById('poison-buttom')
 const resetButtom = document.getElementById('retry-buttom')
 const sectionReset = document.getElementById('retry')
 const sectionCombat = document.getElementById('attack')
@@ -18,11 +15,14 @@ const rewindEnmeyAttacks = document.getElementById('enemy-attacks')
 const playerLifePoints = document.getElementById('player-life')
 const enemyLifePoint = document.getElementById('enemylife')
 const target_container = document.getElementById('targets_container')
+const attackContainer = document.getElementById('attackContainer')
 
 let beats = []
 let beatsOption
 let playerAttack
 let enemyAttack
+let dragonSelected
+let beastAttack
 let lifenumber = 3
 let enemynumber = 3
 let inputFuegoSangre 
@@ -31,6 +31,9 @@ let inputskullmaker
 let inputredtint 
 let inputnigthmare 
 let inputsilentdeath
+let bloodButtom 
+let ShadowButtom 
+let poisonButtom 
 
 
 class Beast {
@@ -50,49 +53,49 @@ let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5)
 let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5)
 
 fuegosangre.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom'},
-    {nombre: '🔴', id: 'blood-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
 )
 
 darkstorm.attacks.push(
-    {nombre: '⚫', id: 'shadow-buttom'},
-    {nombre: '⚫', id: 'shadow-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
 
 )
 
 skullmaker.attacks.push(
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '⚫', id: 'shadow-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
 
 )
 
 redtint.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom'},
-    {nombre: '🔴', id: 'blood-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🟣', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
 
 )
 
 nigtmare.attacks.push(
-    {nombre: '⚫', id: 'shadow-buttom'},
-    {nombre: '⚫', id: 'shadow-buttom'},
-    {nombre: '⚫', id: 'shadow-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
 
 )
 
 silentdeath.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '🟣', id: 'poison-buttom'},
-    {nombre: '⚫', id: 'shadow-buttom'},
+    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: '🟣', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: '🟣', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
 )
 
 beats.push(fuegosangre,silentdeath,nigtmare,redtint,skullmaker,darkstorm)
@@ -101,9 +104,6 @@ beats.push(fuegosangre,silentdeath,nigtmare,redtint,skullmaker,darkstorm)
 
 function startGame (){
     dragonButttom.addEventListener('click', selectDragon)
-    bloodButtom.addEventListener('click', bloodAttack)
-    ShadowButtom.addEventListener('click', shadowAttack)
-    poisonButtom.addEventListener('click', poisonAttack)
     resetButtom.addEventListener('click', resetGame)
     sectionReset.style.display = 'none'
     sectionCombat.style.display = 'none'
@@ -131,59 +131,82 @@ function selectDragon(){
     let play = 1
     let sectionselect = document.getElementById('dragon')
     if( inputFuegoSangre.checked){
-        spanDragonPlayer.innerHTML = 'FuegoSangre'
+        spanDragonPlayer.innerHTML = inputFuegoSangre.id
         sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
+        dragonSelected = inputFuegoSangre.id
     }else if(inputdarkstorm.checked){
-        spanDragonPlayer.innerHTML = 'Darkstorm'
+        spanDragonPlayer.innerHTML = inputdarkstorm.id
         sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
+        dragonSelected = inputdarkstorm.id
     }else if(inputskullmaker.checked){
-        spanDragonPlayer.innerHTML = 'Skullmaker'
+        spanDragonPlayer.innerHTML =  inputskullmaker.id
         sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
+        dragonSelected = inputskullmaker.id
     }else if(inputredtint.checked){
-        spanDragonPlayer.innerHTML = 'Redtint'
+        spanDragonPlayer.innerHTML = inputredtint.id
         sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
+        dragonSelected = inputredtint.id
     }else if(inputnigthmare.checked){
-        spanDragonPlayer.innerHTML = 'Nightmare'
+        spanDragonPlayer.innerHTML = inputnigthmare.id
         sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
+        dragonSelected = inputnigthmare.id 
     }else if(inputsilentdeath.checked){
-        spanDragonPlayer.innerHTML = 'Silentdeath'
+        spanDragonPlayer.innerHTML = inputsilentdeath.id
         play = 1
         sectionCombat.style.display = 'flex'
-        sectionselect.style.display = 'none'    
+        sectionselect.style.display = 'none'
+        dragonSelected = inputsilentdeath.id    
     }else{
         alert("you dont select any dragon")
         play = 0;
     }
     if(play == 1){
+        extractAttacks(dragonSelected)
         selectEnemy()
     } 
 }
 
+function extractAttacks(dragonSelected){
+    let attacks
+    for (let i = 0; i < beats.length; i++) {
+       if (dragonSelected === beats[i].name) {
+        attacks = beats[i].attacks
+       }
+        
+    }
+    mostrarataques(attacks)
+}
+
+function mostrarataques(attacks){
+    attacks.forEach((attack) =>{
+        beastAttack = `
+        <button id=${attack.id} class="attackButtom">${attack.nombre} 
+            <img src=${attack.image} alt="bloodSymbol">
+        </button>
+        `
+        attackContainer.innerHTML += beastAttack
+    })
+    bloodButtom = document.getElementById('blood-buttom')
+    ShadowButtom = document.getElementById('shadow-buttom')
+    poisonButtom = document.getElementById('poison-buttom')
+    bloodButtom.addEventListener('click', bloodAttack)
+    ShadowButtom.addEventListener('click', shadowAttack)
+    poisonButtom.addEventListener('click', poisonAttack)
+}
+
 function selectEnemy (){
-        let enemyRandom = azar(1,6)
-        if(enemyRandom == 1){
-            spanDragonenemy.innerHTML = 'FuegoSangre'
-        }else if(enemyRandom == 2){
-            spanDragonenemy.innerHTML = 'Darkstorm'
-        }else if(enemyRandom == 3){
-            spanDragonenemy.innerHTML = 'SkullMaker'
-        }else if(enemyRandom == 4){
-            spanDragonenemy.innerHTML = 'Redtint'
-        }else if(enemyRandom == 5){
-            spanDragonenemy.innerHTML = 'Nightmare'
-        }else if(enemyRandom == 6){
-            spanDragonenemy.innerHTML = 'Silentdeath'
-        }
+        let enemyRandom = azar(0,beats.length)
+        spanDragonenemy.innerHTML = beats[enemyRandom].name
 }
 
 function otherAttack(){
