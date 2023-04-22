@@ -17,6 +17,9 @@ const enemyLifePoint = document.getElementById('enemylife')
 const target_container = document.getElementById('targets_container')
 const attackContainer = document.getElementById('attackContainer')
 
+const sectionViewMap = document.getElementById('view-map')
+const map = document.getElementById('map')
+
 let beats = []
 let buttons =[]
 let beatsOption
@@ -40,6 +43,8 @@ let ShadowButtom
 let poisonButtom 
 let enemyVictories = 0
 let playerVictories = 0
+let canvaMap = map.getContext("2d")
+let intervalo
 
 class Beast {
     constructor(name, photo, lifes){
@@ -47,6 +52,14 @@ class Beast {
         this.photo = photo
         this.lifes = lifes
         this.attacks = []
+        this.x = 20
+        this.y = 30
+        this.witdh = 80
+        this.height = 80
+        this.photoMap = new Image()
+        this.photoMap.src = photo
+        this.velocityX = 0
+        this.velocityY = 0
     }
 }
 
@@ -112,6 +125,7 @@ function startGame (){
     resetButtom.addEventListener('click', resetGame)
     sectionReset.style.display = 'none'
     sectionCombat.style.display = 'none'
+    sectionViewMap.style.display = 'none'
     beats.forEach((Beast) => {
     beatsOption = `
     <input type="radio" name="dragon" id=${Beast.name}>
@@ -137,38 +151,50 @@ function selectDragon(){
     let sectionselect = document.getElementById('dragon')
     if( inputFuegoSangre.checked){
         spanDragonPlayer.innerHTML = inputFuegoSangre.id
-        sectionCombat.style.display = 'flex'
+        sectionViewMap.style.display = 'flex'
+        startMap()
+        //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputFuegoSangre.id
     }else if(inputdarkstorm.checked){
         spanDragonPlayer.innerHTML = inputdarkstorm.id
-        sectionCombat.style.display = 'flex'
+        sectionViewMap.style.display = 'flex'
+        startMap()
+        //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputdarkstorm.id
     }else if(inputskullmaker.checked){
         spanDragonPlayer.innerHTML =  inputskullmaker.id
-        sectionCombat.style.display = 'flex'
+        sectionViewMap.style.display = 'flex'
+        startMap()
+        //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputskullmaker.id
     }else if(inputredtint.checked){
         spanDragonPlayer.innerHTML = inputredtint.id
-        sectionCombat.style.display = 'flex'
+        sectionViewMap.style.display = 'flex'
+        startMap()
+        //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputredtint.id
     }else if(inputnigthmare.checked){
         spanDragonPlayer.innerHTML = inputnigthmare.id
-        sectionCombat.style.display = 'flex'
+        sectionViewMap.style.display = 'flex'
+        startMap()
+        //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputnigthmare.id 
     }else if(inputsilentdeath.checked){
         spanDragonPlayer.innerHTML = inputsilentdeath.id
         play = 1
-        sectionCombat.style.display = 'flex'
+        sectionViewMap.style.display = 'flex'
+        startMap()
+        //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         dragonSelected = inputsilentdeath.id    
     }else{
@@ -324,8 +350,69 @@ function combat(){
 battlefinish()
 }
 
+function printCharacter(){
+    redtint.x = redtint.x + redtint.velocityX
+    redtint.y = redtint.y + redtint.velocityY
+    canvaMap.clearRect(0,0,map.width, map.height)
+    canvaMap.drawImage(
+        redtint.photoMap,
+        redtint.x,
+        redtint.y,
+        redtint.witdh,
+        redtint.height
+    )
+}
+
+function moveRIGTH() {
+    redtint.velocityX = 5
+}
+
+function moveLEFT() {
+    redtint.velocityX = -5
+}
+
+function moveDOWN() {
+    redtint.velocityY = 5
+}
+
+function moveUP() {
+    redtint.velocityY = -5
+}
+
+function stopMovement(){
+    redtint.velocityX = 0
+    redtint.velocityY = 0
+}
+
 function resetGame(){
     location.reload()
+}
+
+function keyPressed(event){
+    switch (event.key) {
+        case 'ArrowUp':
+            moveUP()
+            break;
+        case 'ArrowDown':
+            moveDOWN()
+            break;
+
+        case 'ArrowLeft':
+            moveLEFT()
+            break;
+
+        case 'ArrowRight':
+            moveRIGTH()
+            break;
+        default:
+            break;
+    }
+}
+
+function startMap() {
+    intervalo = setInterval(printCharacter, 80)
+    window.addEventListener('keydown', keyPressed)
+    window.addEventListener('keyup', stopMovement)
 }
 
 window.addEventListener('load', startGame)
