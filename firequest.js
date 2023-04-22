@@ -215,14 +215,17 @@ function secuencyAttack(){
                 playerAttack.push('BlOOD')
                 console.log(playerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true
             }else if (e.target.textContent == 'Poison \n\n        ') {
                 playerAttack.push('POISON')
                 console.log(playerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true
             }else{
                 playerAttack.push('SHADOW')
                 console.log(playerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true
             }
             otherAttack()
         })
@@ -267,9 +270,6 @@ function battlefinish(){
 
 function createFinalMessage(finalResult){
     rewindAttacks.innerHTML = finalResult
-    bloodButtom.disabled = true
-    ShadowButtom.disabled = true
-    poisonButtom.disabled = true
     sectionReset.style.display = 'flex'
 }
 
