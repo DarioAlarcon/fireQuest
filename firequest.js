@@ -18,14 +18,18 @@ const target_container = document.getElementById('targets_container')
 const attackContainer = document.getElementById('attackContainer')
 
 let beats = []
+let buttons =[]
 let beatsOption
-let playerAttack
-let enemyAttack
+let playerAttack = []
+let enemyAttack = []
 let dragonSelected
+let indexPlayerAttack
+let indexEnemyAttack
 let beastAttack
 let lifenumber = 3
 let enemynumber = 3
 let inputFuegoSangre 
+let enemyDragonAttack
 let inputdarkstorm
 let inputskullmaker 
 let inputredtint 
@@ -34,7 +38,8 @@ let inputsilentdeath
 let bloodButtom 
 let ShadowButtom 
 let poisonButtom 
-
+let enemyVictories = 0
+let playerVictories = 0
 
 class Beast {
     constructor(name, photo, lifes){
@@ -53,49 +58,49 @@ let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5)
 let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5)
 
 fuegosangre.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
 )
 
 darkstorm.attacks.push(
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
 
 )
 
 skullmaker.attacks.push(
-    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
 
 )
 
 redtint.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🟣', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
 
 )
 
 nigtmare.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: '🟣', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
 
 )
 
 silentdeath.attacks.push(
-    {nombre: '🔴', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: '🟣', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: '🟣', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: '⚫', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
 )
 
 beats.push(fuegosangre,silentdeath,nigtmare,redtint,skullmaker,darkstorm)
@@ -190,8 +195,8 @@ function extractAttacks(dragonSelected){
 function mostrarataques(attacks){
     attacks.forEach((attack) =>{
         beastAttack = `
-        <button id=${attack.id} class="attackButtom">${attack.nombre} 
-            <img src=${attack.image} alt="bloodSymbol">
+        <button id=${attack.id} class="attackButtom BAttack">${attack.nombre} 
+<img src=${attack.image} alt="bloodSymbol">
         </button>
         `
         attackContainer.innerHTML += beastAttack
@@ -199,97 +204,124 @@ function mostrarataques(attacks){
     bloodButtom = document.getElementById('blood-buttom')
     ShadowButtom = document.getElementById('shadow-buttom')
     poisonButtom = document.getElementById('poison-buttom')
-    bloodButtom.addEventListener('click', bloodAttack)
-    ShadowButtom.addEventListener('click', shadowAttack)
-    poisonButtom.addEventListener('click', poisonAttack)
+    buttons = document.querySelectorAll('.BAttack')
+
+}
+
+function secuencyAttack(){
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            if (e.target.textContent === 'Blood \n\n        ') {
+                playerAttack.push('BlOOD')
+                console.log(playerAttack)
+                button.style.background = '#112f58'
+            }else if (e.target.textContent == 'Poison \n\n        ') {
+                playerAttack.push('POISON')
+                console.log(playerAttack)
+                button.style.background = '#112f58'
+            }else{
+                playerAttack.push('SHADOW')
+                console.log(playerAttack)
+                button.style.background = '#112f58'
+            }
+            otherAttack()
+        })
+    })
 }
 
 function selectEnemy (){
-        let enemyRandom = azar(0,beats.length)
+        let enemyRandom = azar(0,beats.length-1)
         spanDragonenemy.innerHTML = beats[enemyRandom].name
+        enemyDragonAttack = beats[enemyRandom].attacks
+        secuencyAttack()
 }
 
 function otherAttack(){
-    let enemyPunch = azar(1,3)
-        if(enemyPunch == 1){
-            enemyAttack = 'BlOOD'
-            //alert("the enemy dragon used " + enemyAttack + " Attack")
+    let enemyPunch = azar(0,enemyDragonAttack.length-1)
+        if(enemyPunch == 0|| enemyPunch ==1){
+            enemyAttack.push('BlOOD')
         }else if(enemyPunch == 2){
-            enemyAttack = 'SHADOW'
-            //alert("the enemy dragon used " + enemyAttack + " Attack")
-        }else if(enemyPunch == 3){
-            enemyAttack = 'POISON'
-            //alert("the enemy dragon used " + enemyAttack + " Attack")
+            enemyAttack.push('SHADOW')
+        }else{
+            enemyAttack.push('POISON')
         }
+        startcombat()
+}
+function startcombat() {
+    if(playerAttack.length===4){
         combat()
+    }
 }
 
 function battlefinish(){
-        if(lifenumber == 0){
-            rewindAttacks.innerHTML = 'you lost the battle 😒'
-            bloodButtom.disabled = true
-            ShadowButtom.disabled = true
-            poisonButtom.disabled = true
-            sectionReset.style.display = 'flex'
-        }else if(enemynumber == 0){
-            rewindAttacks.innerHTML = 'you won the battle 😂'
-            bloodButtom.disabled = true
-            ShadowButtom.disabled = true
-            poisonButtom.disabled = true
-            sectionReset.style.display = 'flex'
-        }
+        if(playerVictories==enemyVictories){
+            createFinalMessage("this combat was a draw")
+        }else if (playerVictories>enemyVictories) {
+            createFinalMessage("you won this combat")
+        }else{
+            createFinalMessage("you lost this combat")
+            
+        }    
+}
+
+
+function createFinalMessage(finalResult){
+    rewindAttacks.innerHTML = finalResult
+    bloodButtom.disabled = true
+    ShadowButtom.disabled = true
+    poisonButtom.disabled = true
+    sectionReset.style.display = 'flex'
 }
 
 function azar(min, max){
     return Math.floor(Math.random() * (max-min+1)+min)
 }
 
-function bloodAttack(){
-    playerAttack = 'BlOOD'
-    otherAttack()
-}
-
-function shadowAttack(){
-    playerAttack = 'SHADOW'
-    otherAttack()
-}
-
-function poisonAttack(){
-    playerAttack = 'POISON'
-    otherAttack()
-}
-
 function printAttacks(result){
         let newPlayerAttack = document.createElement('p')
         let newEnemyAttack = document.createElement('p')
         rewindAttacks.innerHTML = result
-        newPlayerAttack.innerHTML = playerAttack
-        newEnemyAttack.innerHTML =enemyAttack
+        newPlayerAttack.innerHTML = indexPlayerAttack
+        newEnemyAttack.innerHTML =indexEnemyAttack
         rewindPlayerAttacks.appendChild(newPlayerAttack)
         rewindEnmeyAttacks.appendChild(newEnemyAttack)
 }
 
+function indexBothOponents(index) {
+    indexPlayerAttack = playerAttack[index]
+    indexEnemyAttack = enemyAttack[index]
+}
+
 function combat(){
-    if( playerAttack == enemyAttack){
-        printAttacks("its a draw")
-       }else if( playerAttack == 'POISON' && enemyAttack == 'BlOOD'){
-        printAttacks("you won")
-        enemynumber=enemynumber-1
-        enemyLifePoint.innerHTML = enemynumber 
-       }else if( playerAttack == 'BlOOD' && enemyAttack == 'SHADOW'){
-        printAttacks("you won")
-        enemynumber=enemynumber-1
-        enemyLifePoint.innerHTML = enemynumber
-       }else if( playerAttack == 'SHADOW' && enemyAttack == 'POISON'){
-        printAttacks("you won")
-        enemynumber=enemynumber-1
-        enemyLifePoint.innerHTML = enemynumber
-       }else{
-        printAttacks("you loose")
-        lifenumber = lifenumber-1
-        playerLifePoints.innerHTML= lifenumber
-       }
-       battlefinish()
+
+    for (let i = 0; i < playerAttack.length; i++) {
+        if (playerAttack[i] == enemyAttack[i]) {
+            indexBothOponents(i)
+            printAttacks("its a draw")
+        }else if( playerAttack[i] == 'POISON' && enemyAttack[i] == 'BlOOD'){
+            indexBothOponents(i)
+            printAttacks("you won")
+            playerVictories = playerVictories+1
+            playerLifePoints.innerHTML= playerVictories 
+        }else if( playerAttack[i] == 'BlOOD' && enemyAttack[i] == 'SHADOW'){
+            indexBothOponents(i)
+            printAttacks("you won")
+            playerVictories = playerVictories+1
+            playerLifePoints.innerHTML= playerVictories
+        }else if( playerAttack[i] == 'SHADOW' && enemyAttack[i] == 'POISON'){
+            indexBothOponents(i)
+            printAttacks("you won")
+            playerVictories = playerVictories+1
+            playerLifePoints.innerHTML= playerVictories
+        }else{
+            indexBothOponents(i)
+            printAttacks("you loose")
+            enemyVictories = enemyVictories+1
+            enemyLifePoint.innerHTML= enemyVictories
+        }
+        
+    }
+battlefinish()
 }
 
 function resetGame(){
