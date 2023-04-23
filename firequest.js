@@ -50,7 +50,7 @@ let mapBackGround = new Image()
 mapBackGround.src= './resources/mapa.png'
 
 class Beast {
-    constructor(name, photo, lifes){
+    constructor(name, photo, lifes, photoBeats, x=10, y=10){
         this.name = name
         this.photo = photo
         this.lifes = lifes
@@ -60,18 +60,18 @@ class Beast {
         this.witdh = 80
         this.height = 80
         this.photoMap = new Image()
-        this.photoMap.src = photo
+        this.photoMap.src = photoBeats
         this.velocityX = 0
         this.velocityY = 0
     }
 }
 
-let fuegosangre = new Beast('Fuegosangre','./resources/fuegosol.png',5)
-let darkstorm = new Beast('Darkstorm', './resources/darkstorm.png', 5)
-let skullmaker = new Beast('Skullmaker','./resources/skullmaker.png', 5)
-let redtint = new Beast('Redtint','./resources/redtint.png',5)
-let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5)
-let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5)
+let fuegosangre = new Beast('Fuegosangre','./resources/fuegosol.png',5,'./resources/fuegosolAvatar.png' )
+let darkstorm = new Beast('Darkstorm', './resources/darkstorm.png', 5,'./resources/darkstormAvatar.png' )
+let skullmaker = new Beast('Skullmaker','./resources/skullmaker.png', 5, './resources/skullmakerAvatar.png')
+let redtint = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png')
+let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png')
+let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png')
 
 fuegosangre.attacks.push(
     {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
