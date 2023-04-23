@@ -4,6 +4,8 @@
         <meta charset="utf-8" />
         <title>DragonQuest</title>
         <link rel="stylesheet" href="firequest.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     </head>
     <body>
         <section id="dragon">
@@ -18,13 +20,14 @@
         </section>
 
         <section id="view-map">
-            <h1 class="tittle">Fly with your dragon above the map</h1>
+            <h2 class="subtittle">Fly with your dragon above the map</h2>
             <canvas id="map"></canvas>
             <button onmouseup="stopMovement()" onmousedown="moveUP()">up</button>
+            <div>
             <button onmouseup="stopMovement()" onmousedown="moveLEFT()">left</button>
             <button onmouseup="stopMovement()" onmousedown="moveDOWN()">down</button>
             <button onmouseup="stopMovement()" onmousedown="moveRIGTH()">rigth</button>
-
+            </div>
         </section>
 
         <section id="attack">

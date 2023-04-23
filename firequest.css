@@ -122,6 +122,18 @@ input:hover + label{
     justify-content: center;
 }
 
+#view-map button{
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    background: #F32424;
+    border: 0px;
+    font-family: 'Arima', cursive;
+    color: white;
+    font-size: 25px;
+    margin: 10px 0px 0px 0px;
+}
+
 #map{
     border: 2px solid whitesmoke;
 
