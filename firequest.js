@@ -55,14 +55,24 @@ class Beast {
         this.photo = photo
         this.lifes = lifes
         this.attacks = []
-        this.x = 20
-        this.y = 30
+        this.x = x
+        this.y = y
         this.witdh = 80
         this.height = 80
         this.photoMap = new Image()
         this.photoMap.src = photoBeats
         this.velocityX = 0
         this.velocityY = 0
+    }
+
+    printBeast(){
+        canvaMap.drawImage(
+            this.photoMap,
+            this.x,
+            this.y,
+            this.witdh,
+            this.height
+        )
     }
 }
 
@@ -72,6 +82,13 @@ let skullmaker = new Beast('Skullmaker','./resources/skullmaker.png', 5, './reso
 let redtint = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png')
 let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png')
 let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png')
+
+let fuegosangreEnemy = new Beast('Fuegosangre','./resources/fuegosol.png',5,'./resources/fuegosolAvatar.png', 80, 120)
+let darkstormEnemy = new Beast('Darkstorm', './resources/darkstorm.png', 5,'./resources/darkstormAvatar.png', 100, 450)
+let skullmakerEnemy = new Beast('Skullmaker','./resources/skullmaker.png', 5, './resources/skullmakerAvatar.png', 410, 310)
+let redtintEnemy = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png', 550, 380)
+let nigtmareEnemy = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png', 220, 220)
+let silentdeathEnemy = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png', 640, 50)
 
 fuegosangre.attacks.push(
     {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
@@ -356,13 +373,13 @@ function printCanva(){
         map.width,
         map.height
     )
-    canvaMap.drawImage(
-        myDragon.photoMap,
-        myDragon.x,
-        myDragon.y,
-        myDragon.witdh,
-        myDragon.height
-    )
+    myDragon.printBeast()
+    fuegosangreEnemy.printBeast()
+    darkstormEnemy.printBeast()
+    silentdeathEnemy.printBeast()
+    nigtmareEnemy.printBeast()
+    redtintEnemy.printBeast()
+    skullmakerEnemy.printBeast()
 }
 
 function moveRIGTH() {
