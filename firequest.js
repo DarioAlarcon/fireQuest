@@ -26,6 +26,7 @@ let beatsOption
 let playerAttack = []
 let enemyAttack = []
 let dragonSelected
+let myDragon 
 let indexPlayerAttack
 let indexEnemyAttack
 let beastAttack
@@ -45,6 +46,8 @@ let enemyVictories = 0
 let playerVictories = 0
 let canvaMap = map.getContext("2d")
 let intervalo
+let mapBackGround = new Image()
+mapBackGround.src= './resources/mapa.png'
 
 class Beast {
     constructor(name, photo, lifes){
@@ -151,40 +154,30 @@ function selectDragon(){
     let sectionselect = document.getElementById('dragon')
     if( inputFuegoSangre.checked){
         spanDragonPlayer.innerHTML = inputFuegoSangre.id
-        sectionViewMap.style.display = 'flex'
-        startMap()
         //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputFuegoSangre.id
     }else if(inputdarkstorm.checked){
         spanDragonPlayer.innerHTML = inputdarkstorm.id
-        sectionViewMap.style.display = 'flex'
-        startMap()
         //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputdarkstorm.id
     }else if(inputskullmaker.checked){
         spanDragonPlayer.innerHTML =  inputskullmaker.id
-        sectionViewMap.style.display = 'flex'
-        startMap()
         //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputskullmaker.id
     }else if(inputredtint.checked){
         spanDragonPlayer.innerHTML = inputredtint.id
-        sectionViewMap.style.display = 'flex'
-        startMap()
         //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
         dragonSelected = inputredtint.id
     }else if(inputnigthmare.checked){
         spanDragonPlayer.innerHTML = inputnigthmare.id
-        sectionViewMap.style.display = 'flex'
-        startMap()
         //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         play = 1
@@ -192,8 +185,6 @@ function selectDragon(){
     }else if(inputsilentdeath.checked){
         spanDragonPlayer.innerHTML = inputsilentdeath.id
         play = 1
-        sectionViewMap.style.display = 'flex'
-        startMap()
         //sectionCombat.style.display = 'flex'
         sectionselect.style.display = 'none'
         dragonSelected = inputsilentdeath.id    
@@ -203,7 +194,10 @@ function selectDragon(){
     }
     if(play == 1){
         extractAttacks(dragonSelected)
+        sectionViewMap.style.display = 'flex'
+        startMap()
         selectEnemy()
+        
     } 
 }
 
@@ -350,38 +344,46 @@ function combat(){
 battlefinish()
 }
 
-function printCharacter(){
-    redtint.x = redtint.x + redtint.velocityX
-    redtint.y = redtint.y + redtint.velocityY
+function printCanva(){
+
+    myDragon.x = myDragon.x + myDragon.velocityX
+    myDragon.y = myDragon.y + myDragon.velocityY
     canvaMap.clearRect(0,0,map.width, map.height)
     canvaMap.drawImage(
-        redtint.photoMap,
-        redtint.x,
-        redtint.y,
-        redtint.witdh,
-        redtint.height
+        mapBackGround,
+        0,
+        0,
+        map.width,
+        map.height
+    )
+    canvaMap.drawImage(
+        myDragon.photoMap,
+        myDragon.x,
+        myDragon.y,
+        myDragon.witdh,
+        myDragon.height
     )
 }
 
 function moveRIGTH() {
-    redtint.velocityX = 5
+    myDragon.velocityX = 5
 }
 
 function moveLEFT() {
-    redtint.velocityX = -5
+    myDragon.velocityX = -5
 }
 
 function moveDOWN() {
-    redtint.velocityY = 5
+    myDragon.velocityY = 5
 }
 
 function moveUP() {
-    redtint.velocityY = -5
+    myDragon.velocityY = -5
 }
 
 function stopMovement(){
-    redtint.velocityX = 0
-    redtint.velocityY = 0
+    myDragon.velocityX = 0
+    myDragon.velocityY = 0
 }
 
 function resetGame(){
@@ -410,9 +412,20 @@ function keyPressed(event){
 }
 
 function startMap() {
-    intervalo = setInterval(printCharacter, 80)
+    map.width = 800
+    map.height = 550
+    myDragon = getDragon()
+    intervalo = setInterval(printCanva, 80)
     window.addEventListener('keydown', keyPressed)
     window.addEventListener('keyup', stopMovement)
+}
+
+function getDragon(){
+    for (let i = 0; i < beats.length; i++) {
+        if (dragonSelected === beats[i].name) {
+         return beats[i]
+        }
+     }
 }
 
 window.addEventListener('load', startGame)
