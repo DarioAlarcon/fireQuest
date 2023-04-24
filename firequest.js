@@ -20,8 +20,51 @@ const attackContainer = document.getElementById('attackContainer')
 const sectionViewMap = document.getElementById('view-map')
 const map = document.getElementById('map')
 
+const Fuegosangre_Attacks = [
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+]
+
+const darkstorm_attacks = [
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+]
+
+const skullmaker_attacks = [
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+]
+
+const redtint_attacks = [
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+]
+
+const nigthmare_attacks = [
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+]
+
+const silentdeath_attack = [
+    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
+    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
+]
+
 let playerId= null
 let beats = []
+let dragonEnemigos = []
 let buttons =[]
 let beatsOption
 let playerAttack = []
@@ -51,13 +94,14 @@ let mapBackGround = new Image()
 mapBackGround.src= './resources/mapa.png'
 
 class Beast {
-    constructor(name, photo, lifes, photoBeats, x=10, y=10){
+    constructor(name, photo, lifes, photoBeats, id = null){
+        this.id=id
         this.name = name
         this.photo = photo
         this.lifes = lifes
         this.attacks = []
-        this.x = x
-        this.y = y
+        this.x = 10
+        this.y = 10
         this.width = 80
         this.height = 80
         this.photoMap = new Image()
@@ -84,104 +128,13 @@ let redtint = new Beast('Redtint','./resources/redtint.png',5, './resources/redt
 let nigtmare = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png')
 let silentdeath = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png')
 
-let fuegosangreEnemy = new Beast('Fuegosangre','./resources/fuegosol.png',5,'./resources/fuegosolAvatar.png', 80, 120)
-let darkstormEnemy = new Beast('Darkstorm', './resources/darkstorm.png', 5,'./resources/darkstormAvatar.png', 100, 450)
-let skullmakerEnemy = new Beast('Skullmaker','./resources/skullmaker.png', 5, './resources/skullmakerAvatar.png', 410, 310)
-let redtintEnemy = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png', 550, 380)
-let nigtmareEnemy = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png', 220, 220)
-let silentdeathEnemy = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png', 640, 50)
+fuegosangre.attacks.push(...Fuegosangre_Attacks)
+darkstorm.attacks.push(...darkstorm_attacks)
+skullmaker.attacks.push(...skullmaker_attacks)
+redtint.attacks.push(...redtint_attacks)
+nigtmare.attacks.push(...nigthmare_attacks)
+silentdeath.attacks.push(...silentdeath_attack)
 
-fuegosangre.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-)
-
-darkstorm.attacks.push(
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-
-)
-
-skullmaker.attacks.push(
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-
-)
-
-redtint.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-
-)
-
-nigtmare.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-
-)
-
-silentdeath.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-)
-
-fuegosangreEnemy.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-)
-
-darkstormEnemy.attacks.push(
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-
-)
-
-skullmakerEnemy.attacks.push(
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-
-)
-
-redtintEnemy.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-
-)
-
-nigtmareEnemy.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom', image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-
-)
-
-silentdeathEnemy.attacks.push(
-    {nombre: 'Blood', id: 'blood-buttom', image:'./resources/shadow_the_hedgehog_black_arms_symbol_by_scourg3z_der0065-fullview.png'},
-    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Poison', id: 'poison-buttom',image:'./resources/Poison-Type-Pokemon-Sword-and-Shield.png'},
-    {nombre: 'Shadow', id: 'shadow-buttom', image:'./resources/kaijudo_shadow_civilization_symbol_by_contreras19_d6gs0mb-fullview.png'},
-)
 
 beats.push(fuegosangre,silentdeath,nigtmare,redtint,skullmaker,darkstorm)
 
@@ -441,13 +394,13 @@ function printCanva(){
 
     sendPosition(myDragon.x, myDragon.y)   
 
-    fuegosangreEnemy.printBeast()
+    /*fuegosangreEnemy.printBeast()
     darkstormEnemy.printBeast()
     silentdeathEnemy.printBeast()
     nigtmareEnemy.printBeast()
     redtintEnemy.printBeast()
-    skullmakerEnemy.printBeast()
-    if (myDragon.velocityX !== 0 || myDragon.velocityY !==0) {
+    skullmakerEnemy.printBeast()*/
+    /*if (myDragon.velocityX !== 0 || myDragon.velocityY !==0) {
         colitionsReview(nigtmareEnemy)
         console.log(colitionsReview)
         colitionsReview(darkstormEnemy)
@@ -455,7 +408,7 @@ function printCanva(){
         colitionsReview(redtintEnemy)
         colitionsReview(skullmakerEnemy)
         colitionsReview(silentdeathEnemy)
-    }
+    }*/
 }
 
 function sendPosition(x,y) {
@@ -468,6 +421,36 @@ function sendPosition(x,y) {
             x,
             y
         })
+    })
+    .then(function (res){
+        if(res.ok){
+            res.json()
+            .then(function({enemies}){
+                console.log(enemies)
+                enemies.forEach(function(enemie){
+                    let dragonEnemigo = null
+                    const dragonName = enemie.dragon.name||""
+                    if(dragonName=="Fuegosangre"){
+                        dragonEnemigo = new Beast('Fuegosangre','./resources/fuegosol.png',5,'./resources/fuegosolAvatar.png')
+                    }else if(dragonName=="Skullmaker"){
+                        dragonEnemigo = new Beast('Skullmaker','./resources/skullmaker.png', 5, './resources/skullmakerAvatar.png')
+                    }else if(dragonName=="Redtint"){
+                        dragonEnemigo = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png')
+                    }else if(dragonName=="Nigtmare"){
+                        dragonEnemigo = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png')
+                    }else if(dragonName=="Silentdeath"){
+                        dragonEnemigo = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png')
+                    }else if(dragonName=="Darkstorm"){
+                        dragonEnemigo = new Beast('Darkstorm', './resources/darkstorm.png', 5,'./resources/darkstormAvatar.png')
+                    }
+
+                    dragonEnemigo.x = enemie.x
+                    dragonEnemigo.y = enemie.y    
+                    
+                    dragonEnemigo.printBeast()                
+                })
+            })
+        }
     })
 }
 
