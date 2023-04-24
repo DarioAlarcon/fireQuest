@@ -394,12 +394,9 @@ function printCanva(){
 
     sendPosition(myDragon.x, myDragon.y)   
 
-    /*fuegosangreEnemy.printBeast()
-    darkstormEnemy.printBeast()
-    silentdeathEnemy.printBeast()
-    nigtmareEnemy.printBeast()
-    redtintEnemy.printBeast()
-    skullmakerEnemy.printBeast()*/
+    dragonEnemigos.forEach(function (dragon){
+        dragon.printBeast()
+    })
     /*if (myDragon.velocityX !== 0 || myDragon.velocityY !==0) {
         colitionsReview(nigtmareEnemy)
         console.log(colitionsReview)
@@ -427,7 +424,7 @@ function sendPosition(x,y) {
             res.json()
             .then(function({enemies}){
                 console.log(enemies)
-                enemies.forEach(function(enemie){
+                dragonEnemigos = enemies.map(function(enemie){
                     let dragonEnemigo = null
                     const dragonName = enemie.dragon.name||""
                     if(dragonName=="Fuegosangre"){
@@ -447,7 +444,7 @@ function sendPosition(x,y) {
                     dragonEnemigo.x = enemie.x
                     dragonEnemigo.y = enemie.y    
                     
-                    dragonEnemigo.printBeast()                
+                    return dragonEnemigo                
                 })
             })
         }
