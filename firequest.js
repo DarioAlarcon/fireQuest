@@ -20,6 +20,7 @@ const attackContainer = document.getElementById('attackContainer')
 const sectionViewMap = document.getElementById('view-map')
 const map = document.getElementById('map')
 
+let playerId= null
 let beats = []
 let buttons =[]
 let beatsOption
@@ -210,7 +211,18 @@ inputsilentdeath = document.getElementById('Silentdeath')
 dragonButttom.addEventListener('click', selectDragon)
 resetButtom.addEventListener('click', resetGame)
  
-
+addGame()
+}
+function addGame(){
+    fetch("http://localhost:8080/unirse")
+        .then(function(res){
+            if(res.ok){
+                res.text()
+                .then(function (respuesta) {
+                    playerId = respuesta
+                })
+            }
+        })
 }
 
 function selectDragon(){
@@ -251,11 +263,24 @@ function selectDragon(){
         play = 0;
     }
     if(play == 1){
+        toSelectDragon(dragonSelected)
         extractAttacks(dragonSelected)
         sectionViewMap.style.display = 'flex'
         startMap()
         
     } 
+}
+
+function toSelectDragon(dragonSelected) {
+    fetch(`http://localhost:8080/firequest/${playerId}`, {
+        method: "post",
+        headers: {
+           "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({
+            dragon:dragonSelected
+        })
+    })
 }
 
 function extractAttacks(dragonSelected){
@@ -413,6 +438,9 @@ function printCanva(){
         map.height
     )
     myDragon.printBeast()
+
+    sendPosition(myDragon.x, myDragon.y)   
+
     fuegosangreEnemy.printBeast()
     darkstormEnemy.printBeast()
     silentdeathEnemy.printBeast()
@@ -428,6 +456,19 @@ function printCanva(){
         colitionsReview(skullmakerEnemy)
         colitionsReview(silentdeathEnemy)
     }
+}
+
+function sendPosition(x,y) {
+    fetch(`http://localhost:8080/firequest/${playerId}/posicion`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
 }
 
 function moveRIGTH() {
