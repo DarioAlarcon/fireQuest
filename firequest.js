@@ -63,6 +63,7 @@ const silentdeath_attack = [
 ]
 
 let playerId= null
+let enemyID = null
 let beats = []
 let dragonEnemigos = []
 let buttons =[]
@@ -282,8 +283,40 @@ function secuencyAttack(){
                 button.style.background = '#112f58'
                 button.disabled = true
             }
-            otherAttack()
+            if(playerAttack.length===4){
+                sendAttacks()
+            }
+            
         })
+    })
+}
+
+function sendAttacks(){
+    fetch(`http://localhost:8080/firequest/${playerId}/attacks`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: playerAttack
+        })
+    })
+
+    intervalo = setInterval(getAttacks, 50)
+}
+
+function getAttacks(){
+    fetch(`http://localhost:8080/firequest/${enemyID}/attacks`)
+    .then(function(res){
+        if (res.ok){
+            res.json()
+            .then(function ({ataques}){
+                if(ataques.length===4){
+                    enemyAttack = ataques
+                    combat()
+                }
+            })
+        }
     })
 }
 
@@ -347,7 +380,7 @@ function indexBothOponents(index) {
 }
 
 function combat(){
-
+    clearInterval(intervalo)
     for (let i = 0; i < playerAttack.length; i++) {
         if (playerAttack[i] == enemyAttack[i]) {
             indexBothOponents(i)
@@ -396,16 +429,8 @@ function printCanva(){
 
     dragonEnemigos.forEach(function (dragon){
         dragon.printBeast()
+        colitionsReview(dragon)
     })
-    /*if (myDragon.velocityX !== 0 || myDragon.velocityY !==0) {
-        colitionsReview(nigtmareEnemy)
-        console.log(colitionsReview)
-        colitionsReview(darkstormEnemy)
-        colitionsReview(fuegosangreEnemy)
-        colitionsReview(redtintEnemy)
-        colitionsReview(skullmakerEnemy)
-        colitionsReview(silentdeathEnemy)
-    }*/
 }
 
 function sendPosition(x,y) {
@@ -428,17 +453,17 @@ function sendPosition(x,y) {
                     let dragonEnemigo = null
                     const dragonName = enemie.dragon.name||""
                     if(dragonName=="Fuegosangre"){
-                        dragonEnemigo = new Beast('Fuegosangre','./resources/fuegosol.png',5,'./resources/fuegosolAvatar.png')
+                        dragonEnemigo = new Beast('Fuegosangre','./resources/fuegosol.png',5,'./resources/fuegosolAvatar.png', enemie.id)
                     }else if(dragonName=="Skullmaker"){
-                        dragonEnemigo = new Beast('Skullmaker','./resources/skullmaker.png', 5, './resources/skullmakerAvatar.png')
+                        dragonEnemigo = new Beast('Skullmaker','./resources/skullmaker.png', 5, './resources/skullmakerAvatar.png', enemie.id)
                     }else if(dragonName=="Redtint"){
-                        dragonEnemigo = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png')
+                        dragonEnemigo = new Beast('Redtint','./resources/redtint.png',5, './resources/redtintAvatar.png', enemie.id)
                     }else if(dragonName=="Nigtmare"){
-                        dragonEnemigo = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png')
+                        dragonEnemigo = new Beast('Nigtmare','./resources/nigthmare.png',5,'./resources/nigthmareAvatar.png', enemie.id)
                     }else if(dragonName=="Silentdeath"){
-                        dragonEnemigo = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png')
+                        dragonEnemigo = new Beast('Silentdeath','./resources/silentdeath.png',5, './resources/silentdeathAvatar.png', enemie.id)
                     }else if(dragonName=="Darkstorm"){
-                        dragonEnemigo = new Beast('Darkstorm', './resources/darkstorm.png', 5,'./resources/darkstormAvatar.png')
+                        dragonEnemigo = new Beast('Darkstorm', './resources/darkstorm.png', 5,'./resources/darkstormAvatar.png', enemie.id)
                     }
 
                     dragonEnemigo.x = enemie.x
@@ -533,10 +558,10 @@ function colitionsReview(enemyBeast){
     }
     stopMovement()
     clearInterval(intervalo)
+    enemyID = enemyBeast.id
     sectionCombat.style.display = 'flex'
     sectionViewMap.style.display= 'none'
     selectEnemy(enemyBeast)
-    //alert("col")
 }
 
 window.addEventListener('load', startGame)

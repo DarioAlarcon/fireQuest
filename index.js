@@ -19,6 +19,10 @@ class Player{
         this.x = x
         this.y = y
     }
+
+    asignarAtaques(ataques){
+        this.ataques = ataques
+    }
 }
 
 class Dragon{
@@ -65,6 +69,27 @@ app.post("/firequest/:playerId/posicion", (req, res) =>{
 
     res.send({
         enemies
+    })
+})
+
+app.post("/firequest/:playerId/attacks", (req, res)=>{
+    const playerId = req.params.playerId||""
+    const ataques = req.body.ataques|| []
+
+    const playerIndex = players.findIndex((player)=> playerId === player.id)
+    
+    if(playerIndex >= 0){
+        players[playerIndex].asignarAtaques(ataques)
+    }
+
+    res.end()
+})
+
+app.get("/firequest/:playerId/attacks", (req,res) => {
+    const playerId = req.params.playerId||""
+    const player = players.find((player) => player.id ===playerId)
+    res.send({
+        ataques: player.ataques ||[]
     })
 })
 
